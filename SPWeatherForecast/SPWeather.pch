@@ -1,0 +1,28 @@
+//
+//  SPWeather.pch
+//  SPWeatherForecast
+//
+//  Created by sheng on 16/1/5.
+//  Copyright © 2016年 simple. All rights reserved.
+//
+
+#ifndef SPWeather_pch
+#define SPWeather_pch
+
+#ifdef __OBJC__
+#import "NSString+RichText.h"
+#import "AddedFont.h"
+#import "SPColors.h"
+#import "WxHxD.h"
+#import "SPLabel.h"
+#import "GCD.h"
+#import "UIView+FitScreen.h"
+#import "TSMessage.h"
+#endif
+
+#ifndef __OPTIMIZE__
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...){}
+#endif
+#endif /* SPWeather_pch */
