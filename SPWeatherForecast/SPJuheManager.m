@@ -17,7 +17,7 @@ static NSString *method = @"GET";
 +(NSDictionary *)getRequestWithCityName:(NSString *)cityName
 {
     NSString *path = @"http://v.juhe.cn/weather/index";
-    NSDictionary *param = @{@"cityname":cityName, @"dtype":@"json"};
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:cityName,@"cityname",@"json",@"dtype",nil];
     return  [[self alloc] getRequestWithParam:param andPath:path];
     
 }
@@ -26,14 +26,14 @@ static NSString *method = @"GET";
 + (NSDictionary *)getCityList
 {
     NSString *path = @"http://v.juhe.cn/weather/citys";
-    NSDictionary *param = @{@"dtype":@"json"};
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@"json",@"dtype",nil];
     return  [[self alloc]getRequestWithParam:param andPath:path];
 }
 
 + (NSDictionary *)getWeatherCategory
 {
     NSString *path = @"http://v.juhe.cn/weather/uni";
-    NSDictionary *param = @{@"dtype":@"json"};
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:@"json",@"dtype",nil];
     return  [[self alloc]getRequestWithParam:param andPath:path];
 }
 
@@ -41,7 +41,7 @@ static NSString *method = @"GET";
 + (NSDictionary *)getThreeHoursForecastWithCityName:(NSString *)cityName
 {
     NSString *path = @"http://v.juhe.cn/weather/forecast3h";
-    NSDictionary *param = @{@"cityname":cityName, @"dtype":@"json"};
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:cityName,@"cityname",@"json",@"dtype",nil];
     return  [[self alloc]getRequestWithParam:param andPath:path];
 }
 
@@ -50,7 +50,7 @@ static NSString *method = @"GET";
 +(NSDictionary *)getRequestWithLocation:(CLLocation *)location
 {
     NSString *path = @"http://v.juhe.cn/weather/geo";
-    NSDictionary *param = @{@"lon":[NSNumber numberWithFloat:location.coordinate.longitude], @"lat":[NSNumber numberWithFloat:location.coordinate.latitude],@"dtype":@"json"};
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:location.coordinate.longitude],@"lon",[NSNumber numberWithFloat:location.coordinate.latitude],@"lat",@"json",@"dtype", nil];
     return  [[self alloc]getRequestWithParam:param andPath:path];
 }
 
@@ -62,7 +62,7 @@ static NSString *method = @"GET";
     NSCondition *SPLock = [[NSCondition alloc]init];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:@"JH9a90db989c0c56696cf12760663ee963"];
+        [[JHOpenidSupplier shareSupplier] registerJuheAPIByOpenId:@"JH4b1cf9bd39a66fa0202cdb464371505b"];
     });
     JHAPISDK *juheapi = [JHAPISDK shareJHAPISDK];
     __block NSDictionary *Dictionary = nil;
@@ -75,17 +75,19 @@ static NSString *method = @"GET";
                                 int error_code = [[responseObject objectForKey:@"error_code"] intValue];
                                 if (!error_code) {
 //                                    NSLog(@" %@", responseObject);
-                                    [GCDQueue executeInGlobalQueue:^{
+                                
                                         Dictionary = responseObject;
-                                    }];
+                                   
                                     NSLog(@"成功获得JSON数据");
+                                    [TSMessage showNotificationWithTitle:@"更新成功" type:TSMessageNotificationTypeSuccess];
                                 }else{
 //                                    NSLog(@" %@", responseObject);
+                                    [TSMessage showNotificationWithTitle:@"无法获取网络数据" subtitle:@"请检查网络状况" type:TSMessageNotificationTypeWarning];
                                 }
                             [SPLock lock];
                             [SPLock signal];
                             [SPLock unlock];
-                            [TSMessage showNotificationWithTitle:@"更新成功" type:TSMessageNotificationTypeSuccess];
+                            
 //                            [semaphore signal];
                         } Failure:^(NSError *error) {
                             NSLog(@"error:   %@",error.description);

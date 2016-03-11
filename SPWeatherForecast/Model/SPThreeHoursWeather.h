@@ -10,22 +10,22 @@
 
 @interface SPThreeHoursWeather : UIView
 
-@property (nonatomic, assign) NSNumber *sfdate;
+@property (nonatomic, copy) NSNumber *sfdate;
 
-@property (nonatomic, assign) NSNumber *efdate;
+@property (nonatomic, copy) NSNumber *efdate;
 
-@property (nonatomic, assign) NSNumber *temp1;
+@property (nonatomic, copy) NSNumber *temp1;
 
-@property (nonatomic, assign) NSNumber *weatherid;
+@property (nonatomic, copy) NSNumber *weatherid;
 
-@property (nonatomic, assign) NSNumber *sh;
+@property (nonatomic, copy) NSNumber *sh;
 
-@property (nonatomic, assign) NSNumber *eh;
+@property (nonatomic, copy) NSNumber *eh;
 
-@property (nonatomic, assign) NSNumber *date;
+@property (nonatomic, copy) NSNumber *date;
 
-@property (nonatomic, strong) NSString *weather;
+@property (nonatomic, copy) NSString *weather;
 
-@property (nonatomic, assign) NSNumber *temp2;
+@property (nonatomic, copy) NSNumber *temp2;
 
 @end

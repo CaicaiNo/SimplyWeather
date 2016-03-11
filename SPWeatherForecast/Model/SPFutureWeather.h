@@ -12,17 +12,17 @@
 
 @interface SPFutureWeather : UIView
 
-@property (nonatomic, strong) NSString *temperature;
+@property (nonatomic, copy) NSString *temperature;
 
-@property (nonatomic, strong) NSString *wind;
+@property (nonatomic, copy) NSString *wind;
 
-@property (nonatomic, strong) NSString *week;
+@property (nonatomic, copy) NSString *week;
 
-@property (nonatomic, assign) NSNumber *date;
+@property (nonatomic, copy) NSNumber *date;
 
-@property (nonatomic, strong) NSString *weather;
+@property (nonatomic, copy) NSString *weather;
 
-@property (nonatomic, strong) NSDictionary *weather_id;
+@property (nonatomic, copy) NSDictionary *weather_id;
 
 - (NSString*)getDateStr;
 

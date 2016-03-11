@@ -10,12 +10,12 @@
 
 @interface SPCity : UIView
 
-@property (nonatomic, strong) NSString *district;
+@property (nonatomic, copy) NSString *district;
 
-@property (nonatomic, assign) NSNumber *id;
+@property (nonatomic, copy) NSNumber *id;
 
-@property (nonatomic, strong) NSString *province;
+@property (nonatomic, copy) NSString *province;
 
-@property (nonatomic, strong) NSString *city;
+@property (nonatomic, copy) NSString *city;
 
 @end

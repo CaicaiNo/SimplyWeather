@@ -19,6 +19,8 @@
 #import "UpdatingView.h"
 #import "SPDisplayData.h"
 #import "FutureViewController.h"
+
+
 @interface MainViewController ()<CLLocationManagerDelegate,DisplayViewDelegate>
 /**
  *  定位
@@ -46,6 +48,8 @@
  *  更新视图
  */
 @property (nonatomic,strong) UpdatingView *updatingView;
+
+@property (nonatomic,strong) CLLocation *lastLocation;
 @end
 
 @implementation MainViewController
@@ -87,7 +91,9 @@
 
 #pragma mark - location and CLLocationManagerDelegate
 -(void)firstSendRequestByCurrentLocation{
-    self.CLManager = [CLLocationManager new];
+    self.CLManager = [[CLLocationManager alloc]init];
+    self.CLManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.CLManager.distanceFilter = 10;
     self.CLManager.delegate = self;
     if ([[UIDevice currentDevice].systemVersion doubleValue] > 8.0) {
         [self.CLManager requestWhenInUseAuthorization];
@@ -113,27 +119,35 @@
 }
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    CLLocation *lastLocation = [locations lastObject];
-    NSLog(@"定位成功，坐标（%f，%f）,开始获取网络数据",lastLocation.coordinate.latitude,lastLocation.coordinate.longitude);
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self performSelector:@selector(delayRunEvent:)
-               withObject:lastLocation
+    self.lastLocation = [locations lastObject];
+    NSLog(@"定位成功，坐标（%f，%f）,开始获取网络数据",self.lastLocation.coordinate.latitude,self.lastLocation.coordinate.longitude);
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(delayRunEvent)
+               withObject:nil
                afterDelay:0.3f];
-        self.CLManager = nil;
+    
     [self.CLManager stopUpdatingLocation];
+    self.CLManager = nil;
 }
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     [TSMessage showNotificationWithTitle:@"定位错误" subtitle:@"无法获取地理位置信息" type:TSMessageNotificationTypeWarning];
     NSLog(@"无法定位");
 }
--(void)delayRunEvent:(id)object
+-(void)delayRunEvent
 {
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-        NSDictionary *dicOne = [SPJuheManager getRequestWithLocation:object];
-//        NSLog(@"dic:%@",dic);
+        NSDictionary *dicOne = [SPJuheManager getRequestWithLocation:self.lastLocation];
+        NSLog(@"dic:%@",dicOne);
         [self getDataFromDictionary:dicOne];
+//        if (dicOne != nil) {
+//            [self getDataFromDictionary:dicOne];
+//            [TSMessage showNotificationWithTitle:@"更新成功" type:TSMessageNotificationTypeSuccess];
+//        }else{
+//            [TSMessage showNotificationWithTitle:@"无法获取网络数据" subtitle:@"请检查网络状况" type:TSMessageNotificationTypeWarning];
+//        }
+        
         
         
 //        NSLog(@"test:%@,%@,%@",self.displayView.data.weatherID,self.displayView.data.maxTemp,self.displayView.data.minTemp);
@@ -143,7 +157,7 @@
        [self.updatingView hide];
        [self.headerView show];
        [self.displayView show];
-   }) ;
+   });
 }
 -(void)getDataFromDictionary:(NSDictionary *)dic
 {

@@ -11,15 +11,15 @@
 @interface SPCurrentWeather : UIView
 
 
-@property (nonatomic, strong) NSString *humidity;
+@property (nonatomic, copy) NSString *humidity;
 
-@property (nonatomic, strong) NSString *wind_direction;
+@property (nonatomic, copy) NSString *wind_direction;
 
-@property (nonatomic, strong) NSNumber *temp;
+@property (nonatomic, copy) NSNumber *temp;
 
-@property (nonatomic, strong) NSString *wind_strength;
+@property (nonatomic, copy) NSString *wind_strength;
 
-@property (nonatomic, strong) NSString *time;
+@property (nonatomic, copy) NSString *time;
 
 -(NSNumber *)getHumidity;
 @end

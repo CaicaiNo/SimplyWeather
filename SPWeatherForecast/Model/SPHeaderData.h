@@ -10,12 +10,12 @@
 
 @interface SPHeaderData : NSObject
 
-@property (nonatomic,strong) NSString *cityName;
+@property (nonatomic,copy) NSString *cityName;
 
-@property (nonatomic,strong) NSString *date;
+@property (nonatomic,copy) NSString *date;
 
-@property (nonatomic,strong) NSString *weekDay;
+@property (nonatomic,copy) NSString *weekDay;
 
-@property (nonatomic,strong) NSString *weatherName;
+@property (nonatomic,copy) NSString *weatherName;
 
 @end

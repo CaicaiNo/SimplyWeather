@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface SPDisplayData : NSObject
-@property (nonatomic,strong) NSNumber *weatherID;
-@property (nonatomic,strong) NSString *windSpeedStr;
-@property (nonatomic,strong) NSString *windDirectionStr;
-@property (nonatomic,assign) NSNumber *humidity;
-@property (nonatomic,strong) NSNumber *temperture;
-@property (nonatomic,strong) NSNumber *maxTemp;
-@property (nonatomic,strong) NSNumber *minTemp;
+@property (nonatomic,copy) NSNumber *weatherID;
+@property (nonatomic,copy) NSString *windSpeedStr;
+@property (nonatomic,copy) NSString *windDirectionStr;
+@property (nonatomic,copy) NSNumber *humidity;
+@property (nonatomic,copy) NSNumber *temperture;
+@property (nonatomic,copy) NSNumber *maxTemp;
+@property (nonatomic,copy) NSNumber *minTemp;
 @end

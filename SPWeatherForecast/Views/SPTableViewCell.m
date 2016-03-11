@@ -24,12 +24,12 @@
 -(void)setHourData:(SPThreeHoursWeather *)hourData
 {
     _hourData = hourData;
-    self.temp.text = [NSString stringWithFormat:@"%d℃~%d℃",[hourData.temp1 intValue],[hourData.temp2 intValue]];
-    self.weather.text = hourData.weather;
-    NSInteger number = [hourData.date integerValue];
+    self.temp.text = [NSString stringWithFormat:@"%d℃~%d℃",[self.hourData.temp1 intValue],[self.hourData.temp2 intValue]];
+    self.weather.text = self.hourData.weather;
+    NSInteger number = [self.hourData.date integerValue];
     self.date.text = [NSString stringWithFormat:@"%04ld.%02ld.%02ld",number/10000,number%10000/100,number%100];
-    self.weekDay.text = [NSString stringWithFormat:@"%02ld:00至%02ld:00",(long)[hourData.sh integerValue],(long)[hourData.eh integerValue]];
-    [self.weatherIcon setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_%02ld",(long)[hourData.weatherid integerValue]]]];
+    self.weekDay.text = [NSString stringWithFormat:@"%02ld:00至%02ld:00",(long)[self.hourData.sh integerValue],(long)[_hourData.eh integerValue]];
+    [self.weatherIcon setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_%02ld",(long)[self.hourData.weatherid integerValue]]]];
     NSLog(@"HOURCEll数据完成赋值");
 }
 - (void)awakeFromNib {

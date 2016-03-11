@@ -106,6 +106,8 @@
 		04EA96FE1C3274C900B2EF75 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA96FD1C3274C900B2EF75 /* AdSupport.framework */; };
 		04EA97041C32AA8B00B2EF75 /* WinnowerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA97031C32AA8B00B2EF75 /* WinnowerView.m */; };
 		E07796D03A3DD4E6294B6D87 /* libPods-SPWeatherForecast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 484E7AD45E3D99CB2EE95575 /* libPods-SPWeatherForecast.a */; };
+		E14A03711C7EABAC00AC88F0 /* libMasonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E14A03701C7EABAC00AC88F0 /* libMasonry.a */; };
+		E14A03731C7EABB100AC88F0 /* libpop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E14A03721C7EABB100AC88F0 /* libpop.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +301,8 @@
 		484E7AD45E3D99CB2EE95575 /* libPods-SPWeatherForecast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SPWeatherForecast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE13C95991FAAD9F1B11BBD /* Pods-SPWeatherForecast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SPWeatherForecast.release.xcconfig"; path = "Pods/Target Support Files/Pods-SPWeatherForecast/Pods-SPWeatherForecast.release.xcconfig"; sourceTree = "<group>"; };
 		855F8817F0B0BCB1DD324F16 /* Pods-SPWeatherForecast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SPWeatherForecast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SPWeatherForecast/Pods-SPWeatherForecast.debug.xcconfig"; sourceTree = "<group>"; };
+		E14A03701C7EABAC00AC88F0 /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMasonry.a; path = "Pods/../build/Debug-iphoneos/libMasonry.a"; sourceTree = "<group>"; };
+		E14A03721C7EABB100AC88F0 /* libpop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpop.a; path = "Pods/../build/Debug-iphoneos/libpop.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +310,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14A03731C7EABB100AC88F0 /* libpop.a in Frameworks */,
+				E14A03711C7EABAC00AC88F0 /* libMasonry.a in Frameworks */,
 				04EA96FE1C3274C900B2EF75 /* AdSupport.framework in Frameworks */,
 				04EA96FC1C3274C300B2EF75 /* CoreLocation.framework in Frameworks */,
 				04EA96FA1C3274BD00B2EF75 /* CoreTelephony.framework in Frameworks */,
@@ -737,6 +743,8 @@
 		866216C438414793349FE32A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E14A03721C7EABB100AC88F0 /* libpop.a */,
+				E14A03701C7EABAC00AC88F0 /* libMasonry.a */,
 				484E7AD45E3D99CB2EE95575 /* libPods-SPWeatherForecast.a */,
 			);
 			name = Frameworks;
@@ -821,6 +829,7 @@
 				TargetAttributes = {
 					04EA96AB1C3273F600B2EF75 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 6C3385FWS4;
 					};
 					04EA96C71C3273F600B2EF75 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -1155,6 +1164,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPWeatherForecast/SPWeather.pch";
 				INFOPLIST_FILE = SPWeatherForecast/Info.plist;
@@ -1163,8 +1173,20 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SPWeatherForecast/Libraries/JuheApisSDK",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.simple.SPWeatherForecast;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Masonry\"",
+					"-l\"c++\"",
+					"-l\"pop\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.simple.SPWeatherForecastasd;
 				PRODUCT_NAME = "Simply天气";
 			};
 			name = Debug;
@@ -1176,6 +1198,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPWeatherForecast/SPWeather.pch";
 				INFOPLIST_FILE = SPWeatherForecast/Info.plist;
@@ -1184,8 +1207,20 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SPWeatherForecast/Libraries/JuheApisSDK",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.simple.SPWeatherForecast;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Masonry\"",
+					"-l\"c++\"",
+					"-l\"pop\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.simple.SPWeatherForecastasd;
 				PRODUCT_NAME = "Simply天气";
 			};
 			name = Release;
